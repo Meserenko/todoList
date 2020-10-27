@@ -1,7 +1,6 @@
 import React from "react";
 import ListItems from "./listItems";
 
-
 class TodoList extends React.Component {
     constructor(props) {
         super(props);
@@ -17,10 +16,14 @@ class TodoList extends React.Component {
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.setUpdate = this.setUpdate.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
     }
 
-
+    handleClick(){
+        this.setState({completed: !this.state.completed})
+    }
+    
 
     handleInput(e) {
         this.setState({
@@ -74,7 +77,7 @@ class TodoList extends React.Component {
                         <i className="fas fa-plus-square"/>
                     </button>
                 </form>
-                <ListItems items={this.state.items} deleteItem={this.deleteItem} setUpdate = {this.setUpdate}/>
+                <ListItems completed={this.state.completed} items={this.state.items} deleteItem={this.deleteItem} setUpdate = {this.setUpdate} handleClick = {this.handleClick}/>
             </div>
         )
     }
