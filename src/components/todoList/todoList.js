@@ -8,11 +8,12 @@ class TodoList extends React.Component {
             items: [],
             currentItem: {
                 text: '',
-                key: ''
+                key: '',
+                completed: false
             },
             completed: false
         }
-        this.handleInput = this.handleInput.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.setUpdate = this.setUpdate.bind(this);
@@ -20,16 +21,19 @@ class TodoList extends React.Component {
 
     }
 
-    handleClick(){
-        this.setState({completed: !this.state.completed})
+    handleClick(key)  {
+        this.setState((state, props) => ({
+            items: this.state.items.map(t => (t.key === key) ? {...t, completed:true} : t)
+        }))
     }
-    
 
-    handleInput(e) {
+
+    handleChange(e) {
         this.setState({
             currentItem:{
                 text: e.target.value,
-                key: Date.now()
+                key: Date.now(),
+                completed: false
             }
         })
     }
@@ -43,7 +47,8 @@ class TodoList extends React.Component {
                 items: newItems,
                 currentItem: {
                     text: '',
-                    key: ''
+                    key: '',
+                    completed: false
                 }
             })
         }
@@ -57,27 +62,24 @@ class TodoList extends React.Component {
     }
 
     setUpdate(text, key) {
-        const items = this.state.items;
-        items.map(item => {
+        this.state.items.map(item => {
             if(item.key===key) {
                 item.text = text;
             }
         })
-        this.setState({
-
-        })
+        this.setState({})
     }
     render() {
 
         return(
             <div>
                 <form onSubmit={this.addItem}>
-                    <input type="text" className="todo-input" value={this.state.currentItem.text} onChange={this.handleInput}/>
+                    <input type="text" className="todo-input" value={this.state.currentItem.text} onChange={this.handleChange}/>
                     <button className="todo-button" type="submit">
                         <i className="fas fa-plus-square"/>
                     </button>
                 </form>
-                <ListItems completed={this.state.completed} items={this.state.items} deleteItem={this.deleteItem} setUpdate = {this.setUpdate} handleClick = {this.handleClick}/>
+                <ListItems items={this.state.items} deleteItem={this.deleteItem} setUpdate = {this.setUpdate} handleClick = {this.handleClick}/>
             </div>
         )
     }
