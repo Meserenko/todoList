@@ -15,7 +15,7 @@ function ListItems(props) {
                 })} type="text" id={item.key} value={item.text} onChange={(e) => {
                     props.setUpdate(e.target.value, item.key)
                 }}/>
-                    <button className='completedItemBtn' onClick={() => props.handleClick(item.key)}>
+                    <button className='completedItemBtn' onClick={() => props.handleClick(item.key, !item.completed)}>
                         <i className="fas fa-check complete-btn"/>
                     </button>
                     <button className="deleteItemBtn" onClick={() => props.deleteItem(item.key)}>
