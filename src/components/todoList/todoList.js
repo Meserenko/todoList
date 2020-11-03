@@ -23,7 +23,7 @@ class TodoList extends React.Component {
     }
 
     handleClick(id, isDone)  {
-        this.setState((state, props) => ({
+        this.setState(() => ({
             items: this.state.items.map(t => (t.id === id) ? {...t, completed: isDone} : t)
         }))
     }

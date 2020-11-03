@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames'
-
+import './list.css'
 
 function ListItems(props) {
     const listItems = props.items.map(item => {
