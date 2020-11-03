@@ -1,5 +1,6 @@
 import React from "react";
 import ListItems from "./listItems";
+import { v4 as uuidv4 } from 'uuid';
 
 class TodoList extends React.Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class TodoList extends React.Component {
             items: [],
             currentItem: {
                 text: '',
-                key: '',
+                id: '',
                 completed: false
             },
             completed: false
@@ -21,9 +22,9 @@ class TodoList extends React.Component {
 
     }
 
-    handleClick(key, isDone)  {
+    handleClick(id, isDone)  {
         this.setState((state, props) => ({
-            items: this.state.items.map(t => (t.key === key) ? {...t, completed: isDone} : t)
+            items: this.state.items.map(t => (t.id === id) ? {...t, completed: isDone} : t)
         }))
     }
 
@@ -32,7 +33,7 @@ class TodoList extends React.Component {
         this.setState({
             currentItem:{
                 text: e.target.value,
-                key: Date.now(),
+                id: uuidv4(),
                 completed: false
             }
         })
@@ -47,30 +48,30 @@ class TodoList extends React.Component {
                 items: newItems,
                 currentItem: {
                     text: '',
-                    key: '',
+                    id: '',
                     completed: false
                 }
             })
         }
     }
 
-    deleteItem(key) {
-        const filteredItems = this.state.items.filter(item => item.key !== key);
+    deleteItem(id) {
+        console.log(id)
+        const filteredItems = this.state.items.filter(item => item.id !== id);
         this.setState({
             items: filteredItems
         })
     }
 
-    setUpdate(text, key) {
+    setUpdate(text, id) {
         this.state.items.map(item => {
-            if(item.key===key) {
+            if(item.id===id) {
                 item.text = text;
             }
         })
         this.setState({})
     }
     render() {
-
         return(
             <div>
                 <form onSubmit={this.addItem}>

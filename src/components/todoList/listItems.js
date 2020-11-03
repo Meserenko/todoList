@@ -5,20 +5,20 @@ import cx from 'classnames'
 function ListItems(props) {
     const listItems = props.items.map(item => {
         return(
-            <div className="todo-container" key={item.key}>
+            <div className="todo-container" id={item.id}>
 
                 <input className={cx({
                     'todo-list':true,
                     'todo':true,
                     'filter-todo':true,
                     'completed': item.completed
-                })} type="text" id={item.key} value={item.text} onChange={(e) => {
-                    props.setUpdate(e.target.value, item.key)
+                })} type="text" id={item.id} value={item.text} onChange={(e) => {
+                    props.setUpdate(e.target.value, item.id)
                 }}/>
-                    <button className='completedItemBtn' onClick={() => props.handleClick(item.key, !item.completed)}>
+                    <button className='completedItemBtn' onClick={() => props.handleClick(item.id, !item.completed)}>
                         <i className="fas fa-check complete-btn"/>
                     </button>
-                    <button className="deleteItemBtn" onClick={() => props.deleteItem(item.key)}>
+                    <button className="deleteItemBtn" onClick={() => props.deleteItem(item.id)}>
                         <i className="fas fa-trash trash-btn" />
                     </button>
             </div>
